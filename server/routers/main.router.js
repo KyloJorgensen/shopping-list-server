@@ -4,6 +4,10 @@ var express = require('express'),
 	router = express.Router();
 
 router.get('/', function(req, res) {
+	res.status(200).sendFile(path.join(__dirname , "../..", 'client/index.html'));
+});
+
+router.get('/test', function(req, res) {
 	res.send('Welcome to the Shopping List REST server!');
 });
 

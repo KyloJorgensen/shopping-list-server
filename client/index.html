@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Shoppping List Client</title>
+	<link rel="stylesheet" href="/public/client.css">
+</head>
+	<div class="container">
+		<button class="add">Add</button>
+		<input type="text">
+		<ul data-bind="foreach: shoppingList">
+			<li>
+				<p data-bind="text: item"></p>
+				<p>(id: <span data-bind="text: id"></span>)</p>
+				<button class="delete" data-bind="click: $parent.deleteButton">Delete</button>
+			</li>
+		</ul>
+	</div>
+<body>
+	<script src="/libs/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>
+	<script src="/public/client.js"></script>
+</body>
+</html>

@@ -13,8 +13,6 @@ app.use('/', mainRouter);
 app.use('/shoppingList', shoppingListRouter);
 
 
-app.listen(process.env.PORT, function () {
+app.listen(process.env.PORT || config.SERVER_PORT, function () {
     console.log(config.SERVER_MESSAGE + " " + config.SERVER_PORT);
 });
-
-// || PORT || config.SERVER_PORT

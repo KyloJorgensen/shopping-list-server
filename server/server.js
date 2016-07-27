@@ -13,6 +13,6 @@ app.use('/', mainRouter);
 app.use('/shoppingList', shoppingListRouter);
 
 
-app.listen(config.SERVER_PORT, function () {
+app.listen($PORT || config.SERVER_PORT, function () {
     console.log(config.SERVER_MESSAGE + " " + config.SERVER_PORT);
 });

@@ -10,7 +10,7 @@
 		<input type="text">
 		<ul data-bind="foreach: shoppingList">
 			<li>
-				<p data-bind="text: item"></p>
+				<p data-bind="text: name"></p>
 				<p>(id: <span data-bind="text: id"></span>)</p>
 				<button class="delete" data-bind="click: $parent.deleteButton">Delete</button>
 			</li>

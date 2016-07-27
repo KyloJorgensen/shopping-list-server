@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = [{item: 'grape', id: 1}, {item: 'apple', id: 2}];
+module.exports = [{name: 'Broad beans', id: 1}, {name: 'Tomatoes', id: 2}, {name: 'Peppers', id: 3}];

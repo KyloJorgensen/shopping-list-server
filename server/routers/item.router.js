@@ -4,17 +4,6 @@ var express = require('express'),
 	router = express.Router(),
 	shoppingList = require('../data/shoppingList');
 
-// post a new item to the server
-
-router.post('/', function(req, res) {
-	console.log(req.body || 'none');
-	if (req.body.name) {
-		var newitem = {name: req.body.name, id: generateID(req.body.id)};
-		shoppingList.push(newitem);
-		res.json(shoppingList);
-	}
-});
-
 // generates Id
 
 function generateID(id) {
@@ -51,25 +40,39 @@ function generateNewId() {
 	}
 }
 
-// updates an items id
+// post a new item to the server
 
-router.put('/:id', function(req, res) {
-	var itemId = req.body.id,
-		newId = generateID(req.params.id);
+router.post('/', function(req, res) {
+	if (req.body.name) {
+		var newitem = {name: req.body.name, id: generateID(req.body.id)};
+		shoppingList.push(newitem);
+		res.json(shoppingList);
+	}
+});
+
+// updates an items name
+
+router.put('/', function(req, res) {
+	var CurrentID = req.body.id,
+		newName = req.body.newName;
 
 	for (var i = 0; i < shoppingList.length; i++) {
-		if (shoppingList[i].id == itemId) {
-			shoppingList[i].id = newId;
-			res.json(shoppingList);
+		if (shoppingList[i].id == CurrentID) {
+			if (newName != shoppingList[i].name) {
+				shoppingList[i].name = newName;
+			}
 		}
 	}
+
+	res.json(shoppingList);
 });
 
 // route to remove an item off the check list
 
-router.delete('/:id', function(req, res) {
+router.delete('/', function(req, res) {
+	var id = req.body.id;
 	for (var i = 0; i < shoppingList.length; i++) {
-		if(shoppingList[i].id == req.params.id) {
+		if(shoppingList[i].id == id) {
 			shoppingList.splice(i, 1);
 			res.json(shoppingList);
 		}

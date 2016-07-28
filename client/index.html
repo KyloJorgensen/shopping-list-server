@@ -6,13 +6,27 @@
 	<link rel="stylesheet" href="/public/client.css">
 </head>
 	<div class="container">
-		<button class="add">Add</button>
-		<input type="text">
+
+		<form data-bind="submit: addItem">
+		    <input placeholder="Item Name" data-bind="value: name" />
+		    <button type="submit">ADD</button>
+		</form>
+
 		<ul data-bind="foreach: shoppingList">
 			<li>
-				<p data-bind="text: name"></p>
-				<p>(id: <span data-bind="text: id"></span>)</p>
-				<button class="delete" data-bind="click: $parent.deleteButton">Delete</button>
+				<div class="item">
+					<p class="item-name" data-bind="text: name"></p>
+					<p class="item-id">(id: <span class="item-id" data-bind="text: id"></span>)</p>
+					<button class="delete" data-bind="click: $parent.deleteButton">Delete</button>
+				</div>
+
+				<div class="item-edit">
+					<form data-bind="submit: $parent.editItem">
+				    	<input placeholder="NEW NAME" />
+				    	<button type="submit">SUBMIT</button>
+					</form>
+				</div>
+				
 			</li>
 		</ul>
 	</div>

@@ -1,6 +1,8 @@
 'use strict';
 var Data = function(self) {
+
 	var data = this;
+
 	this.addItem = function(name, id) {
 		if (!(id)) {
 			id = 1;
@@ -15,11 +17,8 @@ var Data = function(self) {
 		    contentType: 'application/json',
 		    url: '/item'
 		}).done(function(list) {
-	    	console.log('debugs');
-	    	console.log(list);
 	    	self.updateShoppingList(list);
 	    }).fail(function(error){
-	    	console.log('error');
 	        console.log(error);
 	    });
 	};
@@ -47,15 +46,28 @@ var Data = function(self) {
 	        console.log(error);
 	    });
 	};
+
+	this.changeItemName = function(id, newName) {
+		var data = {};
+		data.id = id;
+		data.newName = newName;
+
+		$.ajax({
+		    type: 'PUT',
+		    data: JSON.stringify(data),
+		    contentType: 'application/json',
+		    url: '/item'
+		}).done(function(list) {
+	    	self.updateShoppingList(list);
+	    }).fail(function(error){
+	        console.log(error);
+	    });
+	};
 };
 
 var ViewModel = function() {
 	var self = this,
 		data = new Data(self);
-
-	$('body').on('click', '.add', function() {
-		self.validateInput($('input').val());
-	});
 
 	this.shoppingList = ko.observableArray([]);
 
@@ -67,10 +79,44 @@ var ViewModel = function() {
 		console.log(self.shoppingList());
 	};
 
-	this.validateInput = function(input) {
+	this.name = ko.observable();
+
+	this.addItem = function(formElement) {
+		event.preventDefault();
+		self.validateAddName(self.name());
+		self.name('');
+	};
+
+	this.validateAddName = function(input) {
 		input.toString()
 		if (input) {
 			data.addItem(input);
+		}
+	};
+
+	$('ul').on('click', '.item-name', function() {
+		self.editMode($(this).parent().parent());
+	});
+
+	this.editMode = function(elem) {
+		console.log(elem);
+		$('.item').show();
+		$('.item-edit').hide();
+		$(elem).children('.item').hide();
+		$(elem).children('.item-edit').show();
+	};
+
+	this.editItem = function(formElement) {
+		event.preventDefault();
+		var id = $(formElement).parent().siblings().children('.item-id').children('.item-id').html(),
+			oldName = $(formElement).parent().siblings().children('.item-name').html(),
+			newName = $(formElement).children('input').val();
+		self.validateEditItem(id, newName, oldName);
+	}
+
+	this.validateEditItem = function(id, newName, oldName) {
+		if (newName != oldName) {
+			data.changeItemName(id, newName);
 		}
 	};
 

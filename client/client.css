@@ -3,6 +3,18 @@
 	margin: 0 auto;
 }
 
+ul {
+	list-style-type: none;
+}
+
 li * {
+	display: inline-block;
+}
+
+.item-edit {
+	display: none;
+}
+
+.item-edit * {
 	display: inline-block;
 }

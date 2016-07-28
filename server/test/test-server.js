@@ -85,8 +85,7 @@ describe('Shopping List', function() {
 
     it('should delete an item on delete', function(done) {
     	chai.request(app)
-    		.delete('/item')
-    		.send({'id': 4})
+    		.delete('/item/4')
     		.end(function(err, res) {
     			should.equal(err, null);
     			res.should.have.status(200);

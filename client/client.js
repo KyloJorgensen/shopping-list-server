@@ -37,12 +37,8 @@ var Data = function(self) {
 	};
 
 	this.deleteItem = function(id) {
-		var data = {};
-		data.id = id;
-
 		$.ajax({
-	        url: '/item' ,
-	        data: JSON.stringify(data),
+	        url: '/item/' + id,
 	        datatype: 'jsonp',
 	        type: 'DELETE'
 	    }).done(function(list) {

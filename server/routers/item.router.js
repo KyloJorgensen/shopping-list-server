@@ -69,8 +69,9 @@ router.put('/', function(req, res) {
 
 // route to remove an item off the check list
 
-router.delete('/', function(req, res) {
-	var id = req.body.id;
+router.delete('/:id', function(req, res) {
+	var id = req.params.id;
+	console.log(id);
 	for (var i = 0; i < shoppingList.length; i++) {
 		if(shoppingList[i].id == id) {
 			shoppingList.splice(i, 1);

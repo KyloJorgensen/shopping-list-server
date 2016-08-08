@@ -4,7 +4,7 @@
   "description": "REST shoppinglist server",
   "main": "server/server.js",
   "scripts": {
-    "test": "cd server && mocha && cd ..",
+    "test": "mocha",
     "start": "node server/server.js"
   },
   "repository": {

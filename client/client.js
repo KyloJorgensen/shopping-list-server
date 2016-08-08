@@ -1,7 +1,7 @@
 'use strict';
 var Data = function(self) {
 
-	var data = this;
+	var that = this;
 
 	this.addItem = function(name, id) {
 		if (!(id)) {
@@ -17,7 +17,8 @@ var Data = function(self) {
 		    contentType: 'application/json',
 		    url: '/item'
 		}).done(function(list) {
-	    	self.updateShoppingList(list);
+	    	// self.updateShoppingList(list);
+	    	that.getList();
 	    }).fail(function(error){
 	        console.log(error);
 	    });
@@ -25,7 +26,7 @@ var Data = function(self) {
 
 	this.getList = function() {
 		$.ajax({
-	        url: '/shoppingList/',
+	        url: '/item',
 	        datatype: 'jsonp',
 	        type: 'GET'
 	    }).done(function(list) {
@@ -41,7 +42,8 @@ var Data = function(self) {
 	        datatype: 'jsonp',
 	        type: 'DELETE'
 	    }).done(function(list) {
-			self.updateShoppingList(list);
+			// self.updateShoppingList(list);
+			that.getList();
 	    }).fail(function(error){
 	        console.log(error);
 	    });
@@ -58,7 +60,8 @@ var Data = function(self) {
 		    contentType: 'application/json',
 		    url: '/item'
 		}).done(function(list) {
-	    	self.updateShoppingList(list);
+	    	// self.updateShoppingList(list);
+	    	that.getList();
 	    }).fail(function(error){
 	        console.log(error);
 	    });
@@ -76,7 +79,6 @@ var ViewModel = function() {
 		for (var i = 0; i < list.length; i++) {
 			self.shoppingList.push(list[i]);
 		}
-		console.log(self.shoppingList());
 	};
 
 	this.name = ko.observable();
@@ -99,7 +101,6 @@ var ViewModel = function() {
 	});
 
 	this.editMode = function(elem) {
-		console.log(elem);
 		$('.item').show();
 		$('.item-edit').hide();
 		$(elem).children('.item').hide();
@@ -121,7 +122,7 @@ var ViewModel = function() {
 	};
 
 	this.deleteButton = function(item) {
-		data.deleteItem(item.id);
+		data.deleteItem(item._id);
 	}
 
 	this.init = function() {

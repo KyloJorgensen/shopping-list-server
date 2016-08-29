@@ -1,7 +1,7 @@
 var chai = require('chai'),
     chaiHttp = require('chai-http'),
-    server = require('../server.js'),
-    Item = require('../api/item/item.model'),
+    server = require('../server/server.js'),
+    Item = require('../server/api/item/item.model'),
     should = chai.should(),
     app = server.app;
     // storage = server.storage;
